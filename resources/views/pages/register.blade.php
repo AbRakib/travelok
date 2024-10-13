@@ -1,0 +1,220 @@
+@extends('welcome')
+@section('content')
+    <!-- Header Start -->
+    <div class="container-fluid page-header">
+        <div class="container">
+            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
+                <h3 class="display-4 text-white text-uppercase">Register Member</h3>
+                <div class="d-inline-flex text-white">
+                    <p class="m-0 text-uppercase"><a class="text-white" href="{{route('home')}}">Home</a></p>
+                    <i class="fa fa-angle-double-right pt-1 px-3"></i>
+                    <p class="m-0 text-uppercase">Member Registration</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <div class="container-fluid">
+        <div class="container">
+            <div class="d-flex flex-column align-items-center justify-content-center">
+                <div class="card w-100 mt-5">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <form class="forms-sample" action="{{ route('member.store') }}" enctype="multipart/form-data" method="POST">
+                                @csrf
+                                @method('POST')
+                                <div class="row">
+                                    <div class="col-md-12 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body">
+                                            <h4 class="card-title text-center">Member Registration</h4>
+                                            <p class="card-description text-center"> Registration form layout for add information</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label for="name">Name</label>
+                                                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{old('name')}}" placeholder="Name" required>
+                                                    @error('name')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="father_name">Father Name</label>
+                                                    <input type="text" name="father_name" value="{{old('father_name')}}" class="form-control @error('father_name') is-invalid @enderror" id="father_name" placeholder="Father Name" required>
+                                                    @error('father_name')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="email">Email</label>
+                                                    <input type="text" name="email" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Guide Email" required>
+                                                    @error('email')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="phone">Phone Number</label>
+                                                    <input type="text" name="phone" value="{{old('phone')}}" class="form-control @error('phone') is-invalid @enderror" id="phone" placeholder="Guide Phone" required>
+                                                    @error('phone')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="birth_date">Birth Date</label>
+                                                    <input type="date" name="birth_date" value="{{old('birth_date')}}" class="form-control @error('birth_date') is-invalid @enderror" id="birth_date" placeholder="Guide Birth Date" required>
+                                                    @error('birth_date')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="nid">NID Number</label>
+                                                    <input type="text" name="nid" value="{{old('nid')}}" class="form-control @error('nid') is-invalid @enderror" id="nid" placeholder="Guide NID" required>
+                                                    @error('nid')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="password">Password</label>
+                                                    <input type="password" name="password" value="{{old('password')}}" class="form-control @error('password') is-invalid @enderror" id="password" required>
+                                                    <small class="mt-2 d-block text-muted"><input type="checkbox" onclick="showPassword()"> Show Password</small>
+                                                    @error('password')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label for="profession">Profession</label>
+                                                    <input type="text" name="profession" value="{{old('profession')}}" class="form-control @error('profession') is-invalid @enderror" id="profession" placeholder="Profession" required>
+                                                    @error('profession')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <label for="present_address" class="mb-2">Present Address</label>
+                                                <div class="row mb-4">
+                                                    <div class="col">
+                                                        <select class="form-control" name="country_id" id="country-dropdown" required>
+                                                            <option>Select Country</option>
+                                                            @foreach ($countries as $country)
+                                                                <option value="{{$country->id}}">{{$country->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col">
+                                                        <select class="form-control" name="division_id" id="division" required>
+                                                            <option>Select Division</option>
+                                                            @foreach ($divisions as $division)
+                                                                <option value="{{$division->id}}">{{$division->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col">
+                                                        <select class="form-control" name="district_id" id="district" required>
+                                                            <option>Select District</option>
+                                                            @foreach ($districts as $district)
+                                                                <option value="{{$district->id}}">{{$district->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="marital_status">Marital Status</label>
+                                                    <div>
+                                                        <input class="mx-2" type="radio" name="marital_status" value="1"> Married
+                                                        <input class="mx-2" type="radio" name="marital_status" value="0"> Unmarried
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="visited_places">Visited Places</label>
+                                                    <input type="text" name="visited_places" value="{{old('visited_places')}}" class="form-control @error('visited_places') is-invalid @enderror" id="visited_places" placeholder="Visited Places" required>
+                                                    @error('visited_places')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="image">Guide Image</label>
+                                                    <input type="file" name="image" accept="png" class="form-control @error('image') is-invalid @enderror" id="image" required>
+                                                    <span class="small text-muted">Note: Only png file accept</span>
+                                                    @error('image')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                                <button type="reset" class="btn btn-secondary">Clear</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </form>
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+@endsection
+
+@push('script')
+    <script>
+        function showPassword() {
+            var data = document.getElementById('password');
+            if (data.type === "password") {
+                data.type = "text";
+            } else {
+                data.type = "password";
+            }
+        }
+
+        $(document).ready(function () {
+            $('#country-dropdown').on('change', function () {
+                var idCountry = this.value;
+                $("#division").html('');
+                $.ajax({
+                    url: "{{route('getDivision')}}",
+                    type: "POST",
+                    data: {
+                        country_id: idCountry,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $('#division').html('<option value="">-- Select Division --</option>');
+                        result.divisions.forEach(value => {
+                            $("#division").append('<option value="' + value.id + '">' + value.name + '</option>');
+                        });
+                    }
+                });
+            });
+
+            $('#division').on('change', function () {
+                var division_id = this.value;
+                $("#district").html('');
+                $.ajax({
+                    url: "{{route('getDistrict')}}",
+                    type: "POST",
+                    data: {
+                        division_id: division_id,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $('#district').html('<option value="">-- Select District --</option>');
+                        result.districts.forEach(value => {
+                            $("#district").append('<option value="' + value.id + '">' + value.name + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

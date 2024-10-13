@@ -1,0 +1,4 @@
+[14-Sep-2024 21:05:09 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/travelok/public_html/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/travelok/public_html/config/database.php on line 18
